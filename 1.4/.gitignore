@@ -1,0 +1,12 @@
+*.simg
+*.sif
+*.gz
+*.tar.gz
+*.tar.bz
+*.zip
+*.pl
+*.sh
+blastall
+formatdb
+HLAminer-1.4/*
+HLAminer_v1.4/*
