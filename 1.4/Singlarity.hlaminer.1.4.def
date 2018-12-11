@@ -1,0 +1,51 @@
+#!/bin/bash
+
+
+Bootstrap: docker
+
+From: phusion/baseimage:0.10.2
+
+
+%label
+
+	MAINTAINER Hugo Mananet
+	
+	
+	
+%post
+
+	mkdir /soft
+	mkdir /work
+	mkdir /user1
+	mkdir /user2
+	mkdir /tmp3
+	
+	apt-get update && \
+	apt-get upgrade -y && \
+	apt-get install -y build-essential \
+	wget \
+	cpanminus \
+	perl \
+	tar 
+
+	cpanm Bio::SearchIO
+	
+
+	wget -P /opt/ https://github.com/warrenlr/HLAminer/releases/download/v1.4/HLAminer_1-4.tar.gz
+	cd /opt/ && tar -xzvf HLAminer_1-4.tar.gz 
+	rm /opt/HLAminer_1-4.tar.gz
+	sed -i 's/#!\/home\/martink\/bin\/perl/#!\/usr\/bin\/perl/g' /opt/HLAminer-1.4/HLAminer_v1.4/bin/parseXMLblast.pl
+	sed -i 's/#!\/usr\/bin\/env perl/#!\/usr\/bin\/perl/g' /opt/HLAminer-1.4/HLAminer_v1.4/bin/HLAminer.pl
+	sed -i 's/\/home\/pubseq\/BioSw\/bwa\/bwa-0.5.9\/bwa/bwa/g' /opt/HLAminer-1.4/HLAminer_v1.4/bin/*.sh
+	sed -i 's/\/gsc\/btl\/linuxbrew\/bin\/bwa/bwa/g' /opt/HLAminer-1.4/HLAminer_v1.4/bin/*.sh
+	sed -i 's/\/gsc\/btl\/linuxbrew\/bin\/samtools/samtools/g' /opt/HLAminer-1.4/HLAminer_v1.4/bin/*.sh
+	sed -i '1 i\#!\/bin/sh\/' /opt/HLAminer-1.4/HLAminer_v1.4/bin/*.sh
+
+	chmod 775 /opt/HLAminer-1.4/HLAminer_v1.4/bin/*
+	PATH=$PATH:/opt/HLAminer-1.4/HLAminer_v1.4/bin/
+	export PATH
+
+%environment
+
+	PATH=$PATH:/opt/HLAminer-1.4/HLAminer_v1.4/bin/
+	export PATH
