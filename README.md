@@ -4,4 +4,4 @@
 RA.  2012. Derivation of HLA types from shotgun sequence datasets. 
 Genome Med. 4:95](http://genomemedicine.com/content/4/12/95/abstract)
 
-[Github](https://github.com/warrenlr/HLAminer)
+[Github repository](https://github.com/warrenlr/HLAminer)
