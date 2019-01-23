@@ -94,8 +94,9 @@ From: phusion/baseimage:0.10.2
 	cd /opt/database && ./updateHLA-I_II_genomic.sh
 	cd /opt/database && ./update_p_designation.sh
 	cd /opt/database && samtools faidx HLA_ABC_GEN.fasta
-
-
+	cd /opt/database && samtools faidx HLA-I_II_GEN.fasta
+        cd /opt/database && samtools faidx HLA-I_II_CDS.fasta
+	
 	chmod 775 /opt/bin/*
 	PATH=$PATH:/opt/bin/
 	export PATH
